@@ -209,20 +209,30 @@ impl Tcp {
     /// use adbr::socket::Tcp;
     /// use std::net::Ipv4Addr;
     ///
-    /// let tcp = Tcp::from_host("localhost").unwrap();
+    /// let tcp = Tcp::from_host("tcp:localhost").unwrap();
     /// assert_eq!(tcp, Tcp::with_ipv4(Ipv4Addr::new(127, 0, 0, 1)));
     /// ```
     pub fn from_host(host: &str) -> AdbResult<Self> {
-        host.parse().or_else(|_| {
-            Self::resolve(host).or_else(|e| {
-                // ToSocketAddrs requires a hostname with a port number.
-                // Retry if the input hostname does not contain a port number,
-                match Self::resolve(&format!("{host}:0")) {
-                    Ok(tcp) => Ok(Self::with_ip(tcp.ip.unwrap())),
-                    _ => Err(e),
-                }
-            })
-        })
+        match host.parse() {
+            Ok(tcp) => Ok(tcp),
+            Err(_) => {
+                let host = host.strip_prefix("tcp:").ok_or_else(|| {
+                    ParseError::with_description(
+                        host,
+                        "Tcp",
+                        "incomplete or invalid tcp syntax, expected `tcp:[host:[port]]`",
+                    )
+                })?;
+                Self::resolve(host).or_else(|e| {
+                    // ToSocketAddrs requires a hostname with a port number.
+                    // Retry if the input hostname does not contain a port number,
+                    match Self::resolve(&format!("{host}:0")) {
+                        Ok(tcp) => Ok(Self::with_ip(tcp.ip.unwrap())),
+                        _ => Err(e),
+                    }
+                })
+            }
+        }
     }
 
     fn resolve(host: &str) -> AdbResult<Self> {
@@ -594,19 +604,19 @@ mod tests {
 
     const TCP_RESOLVE_OK: [(&str, Tcp); 2] = [
         (
-            "localhost:5555",
+            "tcp:localhost:5555",
             Tcp::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 5555),
         ),
-        ("localhost", Tcp::with_ipv4(Ipv4Addr::new(127, 0, 0, 1))),
+        ("tcp:localhost", Tcp::with_ipv4(Ipv4Addr::new(127, 0, 0, 1))),
     ];
 
     const TCP_RESOLVE_ERR: [&str; 6] = [
-        "local-host",
-        "local-host:5555",
-        "localhost:",
-        "abcd",
-        "a.b.c.d",
-        "a.b.c.d:p",
+        "tcp:local-host",
+        "tcp:local-host:5555",
+        "tcp:localhost:",
+        "tcp:abcd",
+        "tcp:a.b.c.d",
+        "tcp:a.b.c.d:p",
     ];
 
     #[test]

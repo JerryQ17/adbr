@@ -30,17 +30,17 @@ use crate::AdbResult;
 /// # use std::net::{IpAddr, Ipv4Addr};
 /// # use adbr::global_option::AdbGlobalOption;
 /// # use adbr::socket::Tcp;
-/// assert_eq!("-a".parse(), Ok(AdbGlobalOption::ListenAll));
+/// assert_eq!("-a".parse::<AdbGlobalOption>().unwrap(), AdbGlobalOption::ListenAll);
 /// assert_eq!(
-///     "-s emulator-123".parse(),
-///     Ok(AdbGlobalOption::Serial("emulator-123".to_string()))
+///     "-s emulator-123".parse::<AdbGlobalOption>().unwrap(),
+///     AdbGlobalOption::Serial("emulator-123".to_string())
 /// );
 /// assert_eq!(
-///     "-L tcp:127.0.0.1:8080".parse(),
-///     Ok(AdbGlobalOption::Listen(Tcp{
+///     "-L tcp:127.0.0.1:8080".parse::<AdbGlobalOption>().unwrap(),
+///     AdbGlobalOption::Listen(Tcp{
 ///         ip: Some(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1))),
 ///         port: Some(8080)
-///     }))
+///     })
 /// );
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -87,11 +87,11 @@ impl AdbGlobalOption {
     /// # use adbr::global_option::AdbGlobalOption;
     /// # use adbr::socket::Tcp;
     /// assert_eq!(
-    ///     AdbGlobalOption::from_host("-L tcp:localhost:8080"),
-    ///     Ok(AdbGlobalOption::Listen(Tcp{
+    ///     AdbGlobalOption::from_host("-L tcp:localhost:8080").unwrap(),
+    ///     AdbGlobalOption::Listen(Tcp{
     ///         ip: Some(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1))),
     ///         port: Some(8080)
-    ///     }))
+    ///     })
     /// );
     /// ```
     pub fn from_host(s: &str) -> AdbResult<Self> {
