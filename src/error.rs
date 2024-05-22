@@ -16,7 +16,7 @@ pub enum AdbError {
 }
 
 /// Information about a parse failure.
-/// 
+///
 /// `description` and `source` are optional.
 #[derive(Debug, Error)]
 pub struct ParseError {
