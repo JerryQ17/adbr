@@ -1,4 +1,5 @@
 pub mod error;
+pub mod global_option;
 pub mod socket;
 
 use std::fs::canonicalize;
