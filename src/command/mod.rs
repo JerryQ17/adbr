@@ -1,5 +1,7 @@
 //! The module for adb commands and command builders.
 
+pub mod general;
+
 use std::collections::HashSet;
 use std::path::Path;
 use std::process::{Child, Command, ExitStatus, Output};
@@ -87,13 +89,23 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 
     /// Adds the given global option (`opt`) without checking for duplicates.
-    /// 
+    ///
     /// # Safety
-    /// 
+    ///
     /// Duplicated global options will not affect memory safety,
     /// but may lead to unsuccessful adb command execution or wrong result.
     pub(crate) fn add_global_option_unchecked(mut self, opt: AdbGlobalOption) -> Self {
         self.global_options.insert(opt);
         self
+    }
+
+    /// Builds the adb command with working directory and global options.
+    fn build(self) -> Command {
+        let mut cmd = Command::new("adb");
+        if let Some(working_directory) = self.working_directory {
+            cmd.current_dir(working_directory);
+        }
+        cmd.args(self.global_options.iter().map(|opt| opt.to_string()));
+        cmd
     }
 }
