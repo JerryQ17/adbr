@@ -1,3 +1,6 @@
+//! A Rust library for interacting with the Android Debug Bridge (adb).
+
+pub mod command;
 pub mod error;
 pub mod global_option;
 pub mod socket;
@@ -5,8 +8,8 @@ pub mod socket;
 use std::fs::canonicalize;
 use std::io;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
+use crate::command::AdbCommandBuilder;
 use crate::error::AdbError;
 
 /// Adb result type, where the error is [`AdbError`].
@@ -83,14 +86,11 @@ impl Adb {
         self
     }
 
-    /// Creates a new [`Command`] with the adb binary.
-    ///
-    /// The working directory is set according to [`Self::working_directory`].
-    pub fn command(&self) -> Command {
-        let mut cmd = Command::new("adb");
-        if let Some(dir) = &self.working_directory {
-            cmd.current_dir(dir);
+    /// Creates a new [`AdbCommandBuilder`] with working directory (if [`Some`]).
+    fn command(&self) -> AdbCommandBuilder {
+        match self.working_directory {
+            Some(ref dir) => AdbCommandBuilder::with_working_directory(dir),
+            None => AdbCommandBuilder::new(),
         }
-        cmd
     }
 }
