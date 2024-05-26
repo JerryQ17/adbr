@@ -10,7 +10,10 @@ use std::io;
 use std::path::{Path, PathBuf};
 
 use crate::command::AdbCommandBuilder;
-use crate::error::AdbError;
+
+// Re-exports.
+pub use crate::command::AdbCommand;
+pub use crate::error::AdbError;
 
 /// Adb result type, where the error is [`AdbError`].
 pub type AdbResult<T> = Result<T, AdbError>;
