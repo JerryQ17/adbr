@@ -20,7 +20,7 @@ use crate::{Adb, AdbResult};
 /// - [`AdbGlobalOption::Port`] `-P *PORT` Smart socket PORT of adb server (default=`5037`).
 /// - [`AdbGlobalOption::Listen`] `-L SOCKET` Listen on given socket for adb server (default=`tcp:localhost:5037`).
 /// - [`AdbGlobalOption::OneDevice`] `--one-device SERIAL | USB` Server will only connect to one USB device,
-/// specified by a SERIAL number or USB device address (only with ‘start-server’ or ‘server nodaemon’).
+///     specified by a SERIAL number or USB device address (only with ‘start-server’ or ‘server nodaemon’).
 /// - [`AdbGlobalOption::ExitOnWriteError`] `--exit-on-write-error` Exit if stdout is closed.
 ///
 /// See [GLOBAL OPTIONS](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/user/adb.1.md#global-options)

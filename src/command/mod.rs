@@ -1,6 +1,7 @@
 //! The module for adb commands and command builders.
 
 pub mod general;
+pub mod networking;
 
 use std::collections::HashSet;
 use std::path::Path;
