@@ -371,7 +371,7 @@ impl Adb {
     /// # use adbr::{Adb, AdbCommand};
     /// # use adbr::command::file_transfer::AdbCompressionAlgorithm;
     /// # let adb = Adb::new();
-    /// adb.pull("/path/to/remote", "/path/to/local")
+    /// adb.pull(["/path/to/remote"], "/path/to/local")
     ///     .z(AdbCompressionAlgorithm::Zstd)   // optional
     ///     .status()
     ///     .expect("`adb pull -z zstd /path/to/remote /path/to/local` failed");
