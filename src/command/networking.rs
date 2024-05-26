@@ -80,6 +80,8 @@ impl Adb {
     ///
     /// # Example
     ///
+    /// `adb connect localhost:5555`
+    ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
@@ -166,6 +168,8 @@ impl Adb {
     /// `disconnect [HOST[:PORT]]`: Disconnect from given TCP/IP device (default `PORT=5555`), or all.
     ///
     /// # Example
+    ///
+    /// `adb disconnect localhost:5555`
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
@@ -279,6 +283,8 @@ impl Adb {
     /// However, the validity of the host is not checked.
     ///
     /// # Example
+    ///
+    /// `adb pair localhost:5555 123456`
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
