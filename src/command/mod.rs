@@ -3,6 +3,7 @@
 pub mod file_transfer;
 pub mod general;
 pub mod networking;
+pub mod shell;
 
 use std::collections::HashSet;
 use std::path::Path;
