@@ -1,3 +1,5 @@
+//! Possible errors that can occur when working with ADB.
+
 use std::error::Error;
 use std::fmt::Display;
 use std::io;
