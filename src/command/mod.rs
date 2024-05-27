@@ -4,6 +4,7 @@ pub mod debugging;
 pub mod file_transfer;
 pub mod general;
 pub mod networking;
+pub mod security;
 pub mod shell;
 
 use std::collections::HashSet;
