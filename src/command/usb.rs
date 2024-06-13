@@ -40,7 +40,7 @@ impl Adb {
     ///
     /// # Examples
     ///
-    /// `adb attach 1234567890`
+    /// `adb attach serial`
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
@@ -88,7 +88,7 @@ impl Adb {
     ///
     /// # Examples
     ///
-    /// `adb detach 1234567890`
+    /// `adb detach serial`
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
