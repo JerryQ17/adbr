@@ -3,10 +3,11 @@
 pub mod debugging;
 pub mod file_transfer;
 pub mod general;
+mod internal_debugging;
 pub mod networking;
 pub mod security;
 pub mod shell;
-mod internal_debugging;
+pub mod usb;
 
 use std::collections::HashSet;
 use std::path::Path;
