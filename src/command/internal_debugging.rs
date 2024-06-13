@@ -13,6 +13,7 @@ use std::process::Command;
 use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
+/// `start-server`: Ensure that there is a server running.
 pub struct AdbStartServer<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbStartServer<'a> {
@@ -49,6 +50,7 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 }
 
+/// `kill-server`: Kill the server if it is running.
 pub struct AdbKillServer<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbKillServer<'a> {
@@ -85,6 +87,7 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 }
 
+/// `reconnect`: Close connection from host side to force reconnect.
 pub struct AdbReconnect<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbReconnect<'a> {
@@ -153,6 +156,7 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 }
 
+/// `reconnect device`: Close connection from device side to force reconnect.
 pub struct AdbReconnectDevice<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbReconnectDevice<'a> {
@@ -163,6 +167,7 @@ impl<'a> AdbCommand for AdbReconnectDevice<'a> {
     }
 }
 
+/// `reconnect offline`: Reset offline/unauthorized devices to force reconnect.
 pub struct AdbReconnectOffline<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbReconnectOffline<'a> {

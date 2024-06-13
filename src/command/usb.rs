@@ -13,6 +13,7 @@ use std::process::Command;
 use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
+/// `attach SERIAL`: Attach a detached USB device identified by its `SERIAL` number.
 pub struct AdbAttach<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `SERIAL`: The serial number of the device to attach.
@@ -61,6 +62,7 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 }
 
+/// `detach SERIAL`: Detach from a USB device identified by its `SERIAL` to allow use by other processes.
 pub struct AdbDetach<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `SERIAL`: The serial number of the device to detach.
