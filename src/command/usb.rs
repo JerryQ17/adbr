@@ -25,6 +25,16 @@ impl<'a, S: AsRef<OsStr>> AdbAttach<'a, S> {
     pub fn new(acb: AdbCommandBuilder<'a>, serial: S) -> Self {
         Self { acb, serial }
     }
+
+    /// `SERIAL`: The serial number of the device to attach.
+    ///
+    /// The previous serial will be overwritten.
+    pub fn serial<S1: AsRef<OsStr>>(self, serial: S1) -> AdbAttach<'a, S1> {
+        AdbAttach {
+            acb: self.acb,
+            serial,
+        }
+    }
 }
 
 impl<'a, S: AsRef<OsStr>> AdbCommand for AdbAttach<'a, S> {
@@ -73,6 +83,16 @@ impl<'a, S: AsRef<OsStr>> AdbDetach<'a, S> {
     /// Creates a new `AdbDetach` command.
     pub fn new(acb: AdbCommandBuilder<'a>, serial: S) -> Self {
         Self { acb, serial }
+    }
+
+    /// `SERIAL`: The serial number of the device to detach.
+    ///
+    /// The previous serial will be overwritten.
+    pub fn serial<S1: AsRef<OsStr>>(self, serial: S1) -> AdbDetach<'a, S1> {
+        AdbDetach {
+            acb: self.acb,
+            serial,
+        }
     }
 }
 
