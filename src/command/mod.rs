@@ -6,6 +6,7 @@ pub mod general;
 pub mod networking;
 pub mod security;
 pub mod shell;
+mod internal_debugging;
 
 use std::collections::HashSet;
 use std::path::Path;
