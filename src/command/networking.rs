@@ -16,6 +16,7 @@ use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
 /// `connect HOST[:PORT]`: Connect to a device via TCP/IP (default `PORT=5555`).
+#[derive(Debug, Clone)]
 pub struct AdbConnect<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `HOST`: The host to connect to.
@@ -105,6 +106,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `disconnect [HOST[:PORT]]`: Disconnect from given TCP/IP device (default `PORT=5555`), or all.
+#[derive(Debug, Clone)]
 pub struct AdbDisconnect<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `HOST`: The optional host to disconnect from.
@@ -195,6 +197,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `pair HOST[:PORT] [PAIRING_CODE]`: Pair with a device for secure TCP/IP communication.
+#[derive(Debug, Clone)]
 pub struct AdbPair<'a, S1: AsRef<OsStr>, S2: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `HOST`: The host to pair with.
@@ -322,6 +325,7 @@ impl<'a> AdbCommandBuilder<'a> {
 ///   - `dev-raw:DEVICE_NAME`. (open device in raw mode).
 /// - `--remove LOCAL`: Remove specific forward socket connection.
 /// - `--remove-all`: Remove all forward socket connections.
+#[derive(Debug, Clone)]
 pub struct AdbForward<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbForward<'a> {
@@ -465,6 +469,7 @@ impl<'a> AdbCommandBuilder<'a> {
 /// A subcommand of `forward`.
 ///
 /// `forward --list`: List all forward socket connections.
+#[derive(Debug, Clone)]
 pub struct AdbForwardList<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbForwardList<'a> {
@@ -478,6 +483,7 @@ impl<'a> AdbCommand for AdbForwardList<'a> {
 /// A subcommand of `forward`.
 ///
 /// `forward --no-rebind LOCAL REMOTE`: Forward socket connection without rebinding.
+#[derive(Debug, Clone)]
 pub struct AdbForwardNoRebind<'a, S1: AsRef<OsStr>, S2: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `--no-rebind`: Whether to rebind the connection.
@@ -552,6 +558,7 @@ where
 /// A subcommand of `forward`.
 ///
 /// `forward --remove LOCAL`: Remove specific forward socket connection.
+#[derive(Debug, Clone)]
 pub struct AdbForwardRemove<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `LOCAL`: The local socket to remove.
@@ -582,6 +589,7 @@ impl<'a, S: AsRef<OsStr>> AdbCommand for AdbForwardRemove<'a, S> {
 /// A subcommand of `forward`.
 ///
 /// `forward --remove-all`: Remove all forward socket connections.
+#[derive(Debug, Clone)]
 pub struct AdbForwardRemoveAll<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbForwardRemoveAll<'a> {
@@ -601,6 +609,7 @@ impl<'a> AdbCommand for AdbForwardRemoveAll<'a> {
 ///   - `localfilesystem:UNIX_DOMAIN_SOCKET_NAME`.
 /// - `--remove REMOTE`: Remove specific reverse socket connection.
 /// - `--remove-all`: Remove all reverse socket connections from device.
+#[derive(Debug, Clone)]
 pub struct AdbReverse<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbReverse<'a> {
@@ -736,6 +745,7 @@ impl<'a> AdbCommandBuilder<'a> {
 /// A subcommand of `reverse`.
 ///
 /// `reverse --list`: List all reverse socket connections from device.
+#[derive(Debug, Clone)]
 pub struct AdbReverseList<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbReverseList<'a> {
@@ -749,6 +759,7 @@ impl<'a> AdbCommand for AdbReverseList<'a> {
 /// A subcommand of `reverse`.
 ///
 /// `reverse --no-rebind REMOTE LOCAL`: Reverse socket connection without rebinding.
+#[derive(Debug, Clone)]
 pub struct AdbReverseNoRebind<'a, S1: AsRef<OsStr>, S2: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `--no-rebind`: Whether to rebind the connection.
@@ -823,6 +834,7 @@ where
 /// A subcommand of `reverse`.
 ///
 /// `reverse --remove REMOTE`: Remove specific reverse socket connection.
+#[derive(Debug, Clone)]
 pub struct AdbReverseRemove<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `REMOTE`: The remote socket to remove.
@@ -853,6 +865,7 @@ impl<'a, S: AsRef<OsStr>> AdbCommand for AdbReverseRemove<'a, S> {
 /// A subcommand of `reverse`.
 ///
 /// `reverse --remove-all`: Remove all reverse socket connections from device.
+#[derive(Debug, Clone)]
 pub struct AdbReverseRemoveAll<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbReverseRemoveAll<'a> {
@@ -866,6 +879,7 @@ impl<'a> AdbCommand for AdbReverseRemoveAll<'a> {
 /// `mdns check | services`: Perform mDNS subcommands.
 /// - `check`: Check if mdns discovery is available.
 /// - `services`: List all discovered services.
+#[derive(Debug, Clone)]
 pub struct AdbMdns<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbMdns<'a> {
@@ -927,6 +941,7 @@ impl<'a> AdbCommandBuilder<'a> {
 /// A subcommand of `mdns`.
 ///
 /// `mdns check`: Check if mdns discovery is available.
+#[derive(Debug, Clone)]
 pub struct AdbMdnsCheck<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbMdnsCheck<'a> {
@@ -940,6 +955,7 @@ impl<'a> AdbCommand for AdbMdnsCheck<'a> {
 /// A subcommand of `mdns`.
 ///
 /// `mdns services`: List all discovered services.
+#[derive(Debug, Clone)]
 pub struct AdbMdnsServices<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbMdnsServices<'a> {

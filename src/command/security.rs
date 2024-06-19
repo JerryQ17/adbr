@@ -13,6 +13,7 @@ use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
 /// `disable-verity`: Disable dm-verity checking on userdebug builds.
+#[derive(Debug, Clone)]
 pub struct AdbDisableVerity<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbDisableVerity<'a> {
@@ -52,6 +53,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `enable-verity`: Re-enable dm-verity checking on userdebug builds.
+#[derive(Debug, Clone)]
 pub struct AdbEnableVerity<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbEnableVerity<'a> {
@@ -91,6 +93,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `keygen FILE`: Generate adb public/private key; private key stored in `FILE`.
+#[derive(Debug, Clone)]
 pub struct AdbKeygen<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     file: S,

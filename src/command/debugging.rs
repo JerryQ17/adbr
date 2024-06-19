@@ -18,6 +18,7 @@ use crate::{Adb, AdbCommand};
 ///
 /// If `PATH` is a directory, the bug report is saved in that directory.
 /// Devices that don't support zipped bug reports output to stdout.
+#[derive(Debug, Clone)]
 pub struct AdbBugReport<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `PATH`: The path to write the bugreport to.
@@ -85,6 +86,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `jdwp`: List pids of processes hosting a JDWP transport.
+#[derive(Debug, Clone)]
 pub struct AdbJdwp<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbJdwp<'a> {
@@ -122,6 +124,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `logcat`: Show device log.
+#[derive(Debug, Clone)]
 pub struct AdbLogcat<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbLogcat<'a> {

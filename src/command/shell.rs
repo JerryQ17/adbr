@@ -13,6 +13,7 @@ use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
 /// Whether to allocate a pty.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 enum AdbPtyAllocation {
     /// `-T`: Disable pty allocation.
     Disable,
@@ -39,6 +40,7 @@ impl AsRef<OsStr> for AdbPtyAllocation {
 /// - `-T`: Disable pty allocation.
 /// - `-t`: Allocate a pty if on a tty (-tt: force pty allocation).
 /// - `-x`: Disable remote exit codes and stdout/stderr separation.
+#[derive(Debug, Clone)]
 pub struct AdbShell<'a> {
     acb: AdbCommandBuilder<'a>,
     /// `-e`: Choose escape character, or “none”; default ‘~’.
@@ -189,6 +191,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `emu COMMAND`: Run emulator console `COMMAND`.
+#[derive(Debug, Clone)]
 pub struct AdbEmu<'a, S: AsRef<OsStr>> {
     acb: AdbCommandBuilder<'a>,
     /// `COMMAND`: The command to run.

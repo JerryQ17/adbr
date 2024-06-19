@@ -11,6 +11,7 @@ use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
 /// `host-features`: List features supported by adb server.
+#[derive(Debug, Clone)]
 pub struct AdbHostFeatures<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbHostFeatures<'a> {
@@ -50,6 +51,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `features`: List features supported by both adb server and device.
+#[derive(Debug, Clone)]
 pub struct AdbFeatures<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for AdbFeatures<'a> {

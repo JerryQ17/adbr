@@ -17,7 +17,7 @@ use crate::error::ParseError;
 use crate::{Adb, AdbCommand, AdbError};
 
 /// Compression algorithm for file transfer commands.
-#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum AdbCompressionAlgorithm {
     Any,
     None,
@@ -74,6 +74,7 @@ impl FromStr for AdbCompressionAlgorithm {
 /// - `-n`: Dry run, push files to device without storing to the filesystem.
 /// - `-z`: enable compression with a specified algorithm (any/none/brotli/lz4/zstd).
 /// - `-Z`: Disable compression.
+#[derive(Debug, Clone)]
 pub struct AdbPush<'a, S1, S2, I>
 where
     S1: AsRef<OsStr>,
@@ -245,6 +246,7 @@ impl<'a> AdbCommandBuilder<'a> {
 /// - `-a`: preserve file timestamp and mode.
 /// - `-z`: enable compression with a specified algorithm (any/none/brotli/lz4/zstd).
 /// - `-Z`: disable compression.
+#[derive(Debug, Clone)]
 pub struct AdbPull<'a, S1, S2, I>
 where
     S1: AsRef<OsStr>,
@@ -401,7 +403,9 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// Sync target for `sync` command.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub enum AdbSyncTarget {
+    #[default]
     All,
     Data,
     Odm,
@@ -470,6 +474,7 @@ impl FromStr for AdbSyncTarget {
 /// `-l`: List files that would be copied, but don't copy them.
 /// `-z`: Enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
 /// `-Z`: Disable compression.
+#[derive(Debug, Clone)]
 pub struct AdbSync<'a> {
     acb: AdbCommandBuilder<'a>,
     /// `-n`: Dry run. Push files to device without storing to the filesystem.

@@ -8,11 +8,12 @@
 
 use std::process::Command;
 
-use crate::command::{AdbCommand, AdbCommandBuilder};
-use crate::Adb;
+use crate::command::AdbCommandBuilder;
+use crate::{Adb, AdbCommand};
 
 /// `devices [-l]`: List connected devices.
 /// - `-l`: Use long output.
+#[derive(Debug, Clone)]
 pub struct Devices<'a> {
     acb: AdbCommandBuilder<'a>,
     /// `-l`: Use long output.
@@ -74,6 +75,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `help`: Show help message.
+#[derive(Debug, Clone)]
 pub struct Help<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for Help<'a> {
@@ -111,6 +113,7 @@ impl<'a> AdbCommandBuilder<'a> {
 }
 
 /// `version`: Show version number.
+#[derive(Debug, Clone)]
 pub struct Version<'a>(AdbCommandBuilder<'a>);
 
 impl<'a> AdbCommand for Version<'a> {
