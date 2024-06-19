@@ -13,21 +13,21 @@ use std::process::Command;
 use crate::command::AdbCommandBuilder;
 use crate::{Adb, AdbCommand};
 
-/// - `install [-lrtsdg] [--instant] PACKAGE`: Push a single package to the device and install it
-///   - `-r`: Replace existing application.
-///   - `-t`: Allow test packages.
-///   - `-d`: Allow version code downgrade (debuggable packages only).
-///   - `-g`: Grant all runtime permissions.
-///   - `--abi ABI`: Override platform's default ABI.
-///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-///   - `--streaming`: Force streaming APK directly into Package Manager.
-///   - `--fastdeploy`: Use fast deploy.
-///   - `-no-fastdeploy`: Prevent use of fast deploy.
-///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+/// `install [-lrtsdg] [--instant] PACKAGE`: Push a single package to the device and install it
+/// - `-r`: Replace existing application.
+/// - `-t`: Allow test packages.
+/// - `-d`: Allow version code downgrade (debuggable packages only).
+/// - `-g`: Grant all runtime permissions.
+/// - `--abi ABI`: Override platform's default ABI.
+/// - `--instant`: Cause the app to be installed as an ephemeral install app.
+/// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+/// - `--streaming`: Force streaming APK directly into Package Manager.
+/// - `--fastdeploy`: Use fast deploy.
+/// - `-no-fastdeploy`: Prevent use of fast deploy.
+/// - `-force-agent`: Force update of deployment agent when using fast deploy.
+/// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+/// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+/// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
 ///
 /// See also `adb shell pm help` for more options.
 #[derive(Debug, Clone)]
@@ -300,21 +300,21 @@ where
 }
 
 impl Adb {
-    /// - `install [-lrtsdg] [--instant] PACKAGE`: Push a single package to the device and install it
-    ///   - `-r`: Replace existing application.
-    ///   - `-t`: Allow test packages.
-    ///   - `-d`: Allow version code downgrade (debuggable packages only).
-    ///   - `-g`: Grant all runtime permissions.
-    ///   - `--abi ABI`: Override platform's default ABI.
-    ///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-    ///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-    ///   - `--streaming`: Force streaming APK directly into Package Manager.
-    ///   - `--fastdeploy`: Use fast deploy.
-    ///   - `-no-fastdeploy`: Prevent use of fast deploy.
-    ///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-    ///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-    ///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-    ///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+    /// `install [-lrtsdg] [--instant] PACKAGE`: Push a single package to the device and install it
+    /// - `-r`: Replace existing application.
+    /// - `-t`: Allow test packages.
+    /// - `-d`: Allow version code downgrade (debuggable packages only).
+    /// - `-g`: Grant all runtime permissions.
+    /// - `--abi ABI`: Override platform's default ABI.
+    /// - `--instant`: Cause the app to be installed as an ephemeral install app.
+    /// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+    /// - `--streaming`: Force streaming APK directly into Package Manager.
+    /// - `--fastdeploy`: Use fast deploy.
+    /// - `-no-fastdeploy`: Prevent use of fast deploy.
+    /// - `-force-agent`: Force update of deployment agent when using fast deploy.
+    /// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+    /// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+    /// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
     ///
     /// See also `adb shell pm help` for more options.
     ///
@@ -336,21 +336,21 @@ impl Adb {
 }
 
 impl<'a> AdbCommandBuilder<'a> {
-    /// - `install [-lrtsdg] [--instant] PACKAGE`: Push a single package to the device and install it
-    ///   - `-r`: Replace existing application.
-    ///   - `-t`: Allow test packages.
-    ///   - `-d`: Allow version code downgrade (debuggable packages only).
-    ///   - `-g`: Grant all runtime permissions.
-    ///   - `--abi ABI`: Override platform's default ABI.
-    ///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-    ///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-    ///   - `--streaming`: Force streaming APK directly into Package Manager.
-    ///   - `--fastdeploy`: Use fast deploy.
-    ///   - `-no-fastdeploy`: Prevent use of fast deploy.
-    ///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-    ///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-    ///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-    ///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+    /// `install [-lrtsdg] [--instant] PACKAGE`: Push a single package to the device and install it
+    /// - `-r`: Replace existing application.
+    /// - `-t`: Allow test packages.
+    /// - `-d`: Allow version code downgrade (debuggable packages only).
+    /// - `-g`: Grant all runtime permissions.
+    /// - `--abi ABI`: Override platform's default ABI.
+    /// - `--instant`: Cause the app to be installed as an ephemeral install app.
+    /// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+    /// - `--streaming`: Force streaming APK directly into Package Manager.
+    /// - `--fastdeploy`: Use fast deploy.
+    /// - `-no-fastdeploy`: Prevent use of fast deploy.
+    /// - `-force-agent`: Force update of deployment agent when using fast deploy.
+    /// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+    /// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+    /// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
     ///
     /// See also `adb shell pm help` for more options.
     ///
@@ -360,22 +360,22 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 }
 
-/// - `install-multiple [-lrtsdpg] [--instant] PACKAGE...`: Push multiple APKs to the device for a single package and install them
-///   - `-r`: Replace existing application.
-///   - `-t`: Allow test packages.
-///   - `-d`: Allow version code downgrade (debuggable packages only).
-///   - `-p`: Partial application install.
-///   - `-g`: Grant all runtime permissions.
-///   - `--abi ABI`: Override platform's default ABI.
-///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-///   - `--streaming`: Force streaming APK directly into Package Manager.
-///   - `--fastdeploy`: Use fast deploy.
-///   - `-no-fastdeploy`: Prevent use of fast deploy.
-///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+/// `install-multiple [-lrtsdpg] [--instant] PACKAGE...`: Push multiple APKs to the device for a single package and install them
+/// - `-r`: Replace existing application.
+/// - `-t`: Allow test packages.
+/// - `-d`: Allow version code downgrade (debuggable packages only).
+/// - `-p`: Partial application install.
+/// - `-g`: Grant all runtime permissions.
+/// - `--abi ABI`: Override platform's default ABI.
+/// - `--instant`: Cause the app to be installed as an ephemeral install app.
+/// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+/// - `--streaming`: Force streaming APK directly into Package Manager.
+/// - `--fastdeploy`: Use fast deploy.
+/// - `-no-fastdeploy`: Prevent use of fast deploy.
+/// - `-force-agent`: Force update of deployment agent when using fast deploy.
+/// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+/// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+/// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
 ///
 /// See also `adb shell pm help` for more options.
 #[derive(Debug, Clone)]
@@ -637,22 +637,22 @@ where
 }
 
 impl Adb {
-    /// - `install-multiple [-lrtsdpg] [--instant] PACKAGE...`: Push multiple APKs to the device for a single package and install them
-    ///   - `-r`: Replace existing application.
-    ///   - `-t`: Allow test packages.
-    ///   - `-d`: Allow version code downgrade (debuggable packages only).
-    ///   - `-p`: Partial application install.
-    ///   - `-g`: Grant all runtime permissions.
-    ///   - `--abi ABI`: Override platform's default ABI.
-    ///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-    ///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-    ///   - `--streaming`: Force streaming APK directly into Package Manager.
-    ///   - `--fastdeploy`: Use fast deploy.
-    ///   - `-no-fastdeploy`: Prevent use of fast deploy.
-    ///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-    ///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-    ///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-    ///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+    /// `install-multiple [-lrtsdpg] [--instant] PACKAGE...`: Push multiple APKs to the device for a single package and install them
+    /// - `-r`: Replace existing application.
+    /// - `-t`: Allow test packages.
+    /// - `-d`: Allow version code downgrade (debuggable packages only).
+    /// - `-p`: Partial application install.
+    /// - `-g`: Grant all runtime permissions.
+    /// - `--abi ABI`: Override platform's default ABI.
+    /// - `--instant`: Cause the app to be installed as an ephemeral install app.
+    /// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+    /// - `--streaming`: Force streaming APK directly into Package Manager.
+    /// - `--fastdeploy`: Use fast deploy.
+    /// - `-no-fastdeploy`: Prevent use of fast deploy.
+    /// - `-force-agent`: Force update of deployment agent when using fast deploy.
+    /// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+    /// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+    /// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
     ///
     /// See also `adb shell pm help` for more options.
     ///
@@ -684,22 +684,22 @@ impl Adb {
 }
 
 impl<'a> AdbCommandBuilder<'a> {
-    /// - `install-multiple [-lrtsdpg] [--instant] PACKAGE...`: Push multiple APKs to the device for a single package and install them
-    ///   - `-r`: Replace existing application.
-    ///   - `-t`: Allow test packages.
-    ///   - `-d`: Allow version code downgrade (debuggable packages only).
-    ///   - `-p`: Partial application install.
-    ///   - `-g`: Grant all runtime permissions.
-    ///   - `--abi ABI`: Override platform's default ABI.
-    ///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-    ///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-    ///   - `--streaming`: Force streaming APK directly into Package Manager.
-    ///   - `--fastdeploy`: Use fast deploy.
-    ///   - `-no-fastdeploy`: Prevent use of fast deploy.
-    ///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-    ///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-    ///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-    ///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+    /// `install-multiple [-lrtsdpg] [--instant] PACKAGE...`: Push multiple APKs to the device for a single package and install them
+    /// - `-r`: Replace existing application.
+    /// - `-t`: Allow test packages.
+    /// - `-d`: Allow version code downgrade (debuggable packages only).
+    /// - `-p`: Partial application install.
+    /// - `-g`: Grant all runtime permissions.
+    /// - `--abi ABI`: Override platform's default ABI.
+    /// - `--instant`: Cause the app to be installed as an ephemeral install app.
+    /// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+    /// - `--streaming`: Force streaming APK directly into Package Manager.
+    /// - `--fastdeploy`: Use fast deploy.
+    /// - `-no-fastdeploy`: Prevent use of fast deploy.
+    /// - `-force-agent`: Force update of deployment agent when using fast deploy.
+    /// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+    /// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+    /// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
     ///
     /// See also `adb shell pm help` for more options.
     ///
@@ -719,21 +719,21 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 }
 
-/// - `install-multi-package [-lrtsdg] [--instant] PACKAGE...`: Push one or more packages to the device and install them atomically
-///   - `-r`: Replace existing application.
-///   - `-t`: Allow test packages.
-///   - `-d`: Allow version code downgrade (debuggable packages only).
-///   - `-g`: Grant all runtime permissions.
-///   - `--abi ABI`: Override platform's default ABI.
-///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-///   - `--streaming`: Force streaming APK directly into Package Manager.
-///   - `--fastdeploy`: Use fast deploy.
-///   - `-no-fastdeploy`: Prevent use of fast deploy.
-///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+/// `install-multi-package [-lrtsdg] [--instant] PACKAGE...`: Push one or more packages to the device and install them atomically
+/// - `-r`: Replace existing application.
+/// - `-t`: Allow test packages.
+/// - `-d`: Allow version code downgrade (debuggable packages only).
+/// - `-g`: Grant all runtime permissions.
+/// - `--abi ABI`: Override platform's default ABI.
+/// - `--instant`: Cause the app to be installed as an ephemeral install app.
+/// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+/// - `--streaming`: Force streaming APK directly into Package Manager.
+/// - `--fastdeploy`: Use fast deploy.
+/// - `-no-fastdeploy`: Prevent use of fast deploy.
+/// - `-force-agent`: Force update of deployment agent when using fast deploy.
+/// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+/// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+/// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
 ///
 /// See also `adb shell pm help` for more options.
 #[derive(Debug, Clone)]
@@ -988,21 +988,21 @@ where
 }
 
 impl Adb {
-    /// - `install-multi-package [-lrtsdg] [--instant] PACKAGE...`: Push one or more packages to the device and install them atomically
-    ///   - `-r`: Replace existing application.
-    ///   - `-t`: Allow test packages.
-    ///   - `-d`: Allow version code downgrade (debuggable packages only).
-    ///   - `-g`: Grant all runtime permissions.
-    ///   - `--abi ABI`: Override platform's default ABI.
-    ///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-    ///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-    ///   - `--streaming`: Force streaming APK directly into Package Manager.
-    ///   - `--fastdeploy`: Use fast deploy.
-    ///   - `-no-fastdeploy`: Prevent use of fast deploy.
-    ///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-    ///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-    ///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-    ///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+    /// `install-multi-package [-lrtsdg] [--instant] PACKAGE...`: Push one or more packages to the device and install them atomically
+    /// - `-r`: Replace existing application.
+    /// - `-t`: Allow test packages.
+    /// - `-d`: Allow version code downgrade (debuggable packages only).
+    /// - `-g`: Grant all runtime permissions.
+    /// - `--abi ABI`: Override platform's default ABI.
+    /// - `--instant`: Cause the app to be installed as an ephemeral install app.
+    /// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+    /// - `--streaming`: Force streaming APK directly into Package Manager.
+    /// - `--fastdeploy`: Use fast deploy.
+    /// - `-no-fastdeploy`: Prevent use of fast deploy.
+    /// - `-force-agent`: Force update of deployment agent when using fast deploy.
+    /// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+    /// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+    /// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
     ///
     /// See also `adb shell pm help` for more options.
     ///
@@ -1034,21 +1034,21 @@ impl Adb {
 }
 
 impl<'a> AdbCommandBuilder<'a> {
-    /// - `install-multi-package [-lrtsdg] [--instant] PACKAGE...`: Push one or more packages to the device and install them atomically
-    ///   - `-r`: Replace existing application.
-    ///   - `-t`: Allow test packages.
-    ///   - `-d`: Allow version code downgrade (debuggable packages only).
-    ///   - `-g`: Grant all runtime permissions.
-    ///   - `--abi ABI`: Override platform's default ABI.
-    ///   - `--instant`: Cause the app to be installed as an ephemeral install app.
-    ///   - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
-    ///   - `--streaming`: Force streaming APK directly into Package Manager.
-    ///   - `--fastdeploy`: Use fast deploy.
-    ///   - `-no-fastdeploy`: Prevent use of fast deploy.
-    ///   - `-force-agent`: Force update of deployment agent when using fast deploy.
-    ///   - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
-    ///   - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
-    ///   - `--local-agent`: Locate agent files from local source build (instead of SDK location).
+    /// `install-multi-package [-lrtsdg] [--instant] PACKAGE...`: Push one or more packages to the device and install them atomically
+    /// - `-r`: Replace existing application.
+    /// - `-t`: Allow test packages.
+    /// - `-d`: Allow version code downgrade (debuggable packages only).
+    /// - `-g`: Grant all runtime permissions.
+    /// - `--abi ABI`: Override platform's default ABI.
+    /// - `--instant`: Cause the app to be installed as an ephemeral install app.
+    /// - `--no-streaming`: Always push APK to device and invoke Package Manager as separate steps.
+    /// - `--streaming`: Force streaming APK directly into Package Manager.
+    /// - `--fastdeploy`: Use fast deploy.
+    /// - `-no-fastdeploy`: Prevent use of fast deploy.
+    /// - `-force-agent`: Force update of deployment agent when using fast deploy.
+    /// - `-date-check-agent`: Update deployment agent when local version is newer and using fast deploy.
+    /// - `--version-check-agent`: Update deployment agent when local version has different version code and using fast deploy.
+    /// - `--local-agent`: Locate agent files from local source build (instead of SDK location).
     ///
     /// See also `adb shell pm help` for more options.
     ///
@@ -1065,5 +1065,88 @@ impl<'a> AdbCommandBuilder<'a> {
                 .map(|s| s.as_ref().to_os_string())
                 .collect(),
         )
+    }
+}
+
+/// `uninstall [-k] APPLICATION_ID`: Remove this `APPLICATION_ID` from the device.
+///
+/// - `-k`: Keep the data and cache directories.
+#[derive(Debug, Clone)]
+pub struct AdbUninstall<'a, S: AsRef<OsStr>> {
+    acb: AdbCommandBuilder<'a>,
+    /// `-k`: Keep the data and cache directories.
+    k: bool,
+    /// `APPLICATION_ID`: The package to uninstall.
+    application_id: S,
+}
+
+impl<'a, S: AsRef<OsStr>> AdbUninstall<'a, S> {
+    fn new(acb: AdbCommandBuilder<'a>, application_id: S) -> AdbUninstall<'a, S> {
+        AdbUninstall {
+            acb,
+            k: false,
+            application_id,
+        }
+    }
+
+    /// `-k`: Keep the data and cache directories.
+    pub fn k(mut self) -> Self {
+        self.k = true;
+        self
+    }
+
+    /// `APPLICATION_ID`: The package to uninstall.
+    ///
+    /// The previous application ID will be overwritten.
+    pub fn application_id<S1: AsRef<OsStr>>(self, application_id: S1) -> AdbUninstall<'a, S1> {
+        AdbUninstall {
+            acb: self.acb,
+            k: self.k,
+            application_id,
+        }
+    }
+}
+
+impl<'a, S: AsRef<OsStr>> AdbCommand for AdbUninstall<'a, S> {
+    fn build(self) -> Command {
+        let mut cmd = self.acb.build();
+        cmd.arg("uninstall");
+        if self.k {
+            cmd.arg("-k");
+        }
+        cmd.arg(self.application_id);
+        cmd
+    }
+}
+
+impl Adb {
+    /// `uninstall [-k] APPLICATION_ID`: Remove this `APPLICATION_ID` from the device.
+    ///
+    /// - `-k`: Keep the data and cache directories.
+    ///
+    /// # Examples
+    ///
+    /// `adb uninstall com.example.app`
+    ///
+    /// ```no_run
+    /// # use adbr::{Adb, AdbCommand};
+    /// # let adb = Adb::new();
+    /// adb.uninstall("com.example.app")
+    ///     .status()
+    ///     .expect("`adb uninstall com.example.app` failed");
+    /// ```
+    pub fn uninstall<S: AsRef<OsStr>>(&self, application_id: S) -> AdbUninstall<S> {
+        AdbUninstall::new(self.command(), application_id)
+    }
+}
+
+impl<'a> AdbCommandBuilder<'a> {
+    /// `uninstall [-k] APPLICATION_ID`: Remove this `APPLICATION_ID` from the device.
+    ///
+    /// - `-k`: Keep the data and cache directories.
+    ///
+    /// See [`Adb::uninstall`] for more information.
+    pub fn uninstall<S: AsRef<OsStr>>(self, application_id: S) -> AdbUninstall<'a, S> {
+        AdbUninstall::new(self, application_id)
     }
 }
