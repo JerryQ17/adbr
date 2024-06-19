@@ -6,6 +6,7 @@ pub mod file_transfer;
 pub mod general;
 mod internal_debugging;
 pub mod networking;
+pub mod scripting;
 pub mod security;
 pub mod shell;
 pub mod usb;
@@ -16,6 +17,8 @@ use std::process::{Child, Command, ExitStatus, Output};
 
 use crate::global_option::AdbGlobalOption;
 use crate::AdbResult;
+
+pub use scripting::{AdbRebootTarget, AdbWaitForState, AdbWaitForTransport};
 
 /// A trait that builds and executes adb commands.
 pub trait AdbCommand: Sized {
