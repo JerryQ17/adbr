@@ -1,5 +1,6 @@
 //! The module for adb commands and command builders.
 
+pub mod app_installation;
 pub mod debugging;
 pub mod features;
 pub mod file_transfer;
