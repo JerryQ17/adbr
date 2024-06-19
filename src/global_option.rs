@@ -175,57 +175,62 @@ impl Display for AdbGlobalOption {
 
 impl Adb {
     /// `-a`: Listen on all network interfaces, not just localhost.
-    pub fn listen_all(&self) -> AdbCommandBuilder {
-        self.command().listen_all()
+    pub fn a_listen_all(&self) -> AdbCommandBuilder {
+        self.command().a_listen_all()
     }
 
     /// `-d`: Use USB device (error if multiple devices connected).
-    pub fn usb(&self) -> AdbCommandBuilder {
-        self.command().usb()
+    pub fn d_usb(&self) -> AdbCommandBuilder {
+        self.command().d_usb()
     }
 
     /// `-e`: Use TCP/IP device (error if multiple TCP/IP devices available).
-    pub fn tcp_ip(&self) -> AdbCommandBuilder {
-        self.command().tcp_ip()
+    pub fn e_tcp_ip(&self) -> AdbCommandBuilder {
+        self.command().e_tcp_ip()
     }
 
     /// `-s SERIAL`: Use device with given SERIAL (overrides $ANDROID_SERIAL).
-    pub fn serial<S: ToString>(&self, serial: S) -> AdbCommandBuilder {
-        self.command().serial(serial)
+    pub fn s_serial<S: ToString>(&self, serial: S) -> AdbCommandBuilder {
+        self.command().s_serial(serial)
     }
 
     /// `-t ID`: Use device with given transport id.
-    pub fn transport_id<S: ToString>(&self, id: S) -> AdbCommandBuilder {
-        self.command().transport_id(id)
+    pub fn t_transport_id<S: ToString>(&self, id: S) -> AdbCommandBuilder {
+        self.command().t_transport_id(id)
     }
 
     /// `-H`: Name of adb server host. Default is `localhost`.
-    pub fn host<A: Into<IpAddr>>(&self, host: A) -> AdbCommandBuilder {
-        self.command().host(host)
+    #[allow(non_snake_case)]
+    pub fn H_host<A: Into<IpAddr>>(&self, host: A) -> AdbCommandBuilder {
+        self.command().H_host(host)
     }
 
     /// `-H`: Name of adb server host. Default is `localhost`.
     ///
     /// This will resolve the hostname to an IP address. See [`Tcp::from_host`] for more information.
-    pub fn host_resolved(&self, host: &str) -> AdbResult<AdbCommandBuilder> {
-        self.command().host_resolved(host)
+    #[allow(non_snake_case)]
+    pub fn H_host_resolved(&self, host: &str) -> AdbResult<AdbCommandBuilder> {
+        self.command().H_host_resolved(host)
     }
 
     /// `-P *PORT`: Smart socket PORT of adb server. Default is `5037`.
-    pub fn port(&self, port: u16) -> AdbCommandBuilder {
-        self.command().port(port)
+    #[allow(non_snake_case)]
+    pub fn P_port(&self, port: u16) -> AdbCommandBuilder {
+        self.command().P_port(port)
     }
 
     /// `-L SOCKET`: Listen on given socket for adb server. Default is `tcp:localhost:5037`.
-    pub fn listen(&self, addr: Tcp) -> AdbCommandBuilder {
-        self.command().listen(addr)
+    #[allow(non_snake_case)]
+    pub fn L_listen(&self, addr: Tcp) -> AdbCommandBuilder {
+        self.command().L_listen(addr)
     }
 
     /// `-L SOCKET`: Listen on given socket for adb server. Default is `tcp:localhost:5037`.
     ///
     /// This will resolve the hostname to an IP address. See [`Tcp::from_host`] for more information.
-    pub fn listen_resolved(&self, addr: &str) -> AdbResult<AdbCommandBuilder> {
-        self.command().listen_resolved(addr)
+    #[allow(non_snake_case)]
+    pub fn L_listen_resolved(&self, addr: &str) -> AdbResult<AdbCommandBuilder> {
+        self.command().L_listen_resolved(addr)
     }
 
     /// `--one-device SERIAL | USB`:
@@ -243,24 +248,24 @@ impl Adb {
 
 impl<'a> AdbCommandBuilder<'a> {
     /// `-a`: Listen on all network interfaces, not just localhost.
-    pub fn listen_all(self) -> Self {
+    pub fn a_listen_all(self) -> Self {
         self.add_global_option_unchecked(AdbGlobalOption::ListenAll)
     }
 
     /// `-d`: Use USB device (error if multiple devices connected).
-    pub fn usb(self) -> Self {
+    pub fn d_usb(self) -> Self {
         self.add_global_option_unchecked(AdbGlobalOption::Usb)
     }
 
     /// `-e`: Use TCP/IP device (error if multiple TCP/IP devices available).
-    pub fn tcp_ip(self) -> Self {
+    pub fn e_tcp_ip(self) -> Self {
         self.add_global_option_unchecked(AdbGlobalOption::TcpIp)
     }
 
     /// `-s SERIAL`: Use device with given SERIAL (overrides $ANDROID_SERIAL).
     ///
     /// If a `-s SERIAL` option already exists, it will be replaced.
-    pub fn serial<S: ToString>(self, serial: S) -> Self {
+    pub fn s_serial<S: ToString>(self, serial: S) -> Self {
         self.add_global_option(AdbGlobalOption::Serial(serial.to_string()), |opt| {
             matches!(opt, AdbGlobalOption::Serial(_))
         })
@@ -269,7 +274,7 @@ impl<'a> AdbCommandBuilder<'a> {
     /// `-t ID`: Use device with given transport id.
     ///
     /// If a `-t ID` option already exists, it will be replaced.
-    pub fn transport_id<S: ToString>(self, id: S) -> Self {
+    pub fn t_transport_id<S: ToString>(self, id: S) -> Self {
         self.add_global_option(AdbGlobalOption::TransportId(id.to_string()), |opt| {
             matches!(opt, AdbGlobalOption::TransportId(_))
         })
@@ -277,8 +282,9 @@ impl<'a> AdbCommandBuilder<'a> {
 
     /// `-H`: Name of adb server host. Default is `localhost`.
     ///
-    /// If you want to resolve the hostname, use [`Self::host_resolved`] instead.
-    pub fn host<A: Into<IpAddr>>(self, host: A) -> Self {
+    /// If you want to resolve the hostname, use [`Self::H_host_resolved`] instead.
+    #[allow(non_snake_case)]
+    pub fn H_host<A: Into<IpAddr>>(self, host: A) -> Self {
         self.add_global_option(AdbGlobalOption::Host(host.into()), |opt| {
             matches!(opt, AdbGlobalOption::Host(_))
         })
@@ -287,7 +293,8 @@ impl<'a> AdbCommandBuilder<'a> {
     /// `-H`: Name of adb server host. Default is `localhost`.
     ///
     /// This will resolve the hostname to an IP address. See [`Tcp::from_host`] for more information.
-    pub fn host_resolved(self, host: &str) -> AdbResult<Self> {
+    #[allow(non_snake_case)]
+    pub fn H_host_resolved(self, host: &str) -> AdbResult<Self> {
         Ok(self.add_global_option(
             AdbGlobalOption::Host(
                 Tcp::from_host(&format!("tcp:{}", host))?
@@ -299,7 +306,8 @@ impl<'a> AdbCommandBuilder<'a> {
     }
 
     /// `-P *PORT`: Smart socket PORT of adb server. Default is `5037`.
-    pub fn port(self, port: u16) -> Self {
+    #[allow(non_snake_case)]
+    pub fn P_port(self, port: u16) -> Self {
         self.add_global_option(AdbGlobalOption::Port(port), |opt| {
             matches!(opt, AdbGlobalOption::Port(_))
         })
@@ -307,8 +315,9 @@ impl<'a> AdbCommandBuilder<'a> {
 
     /// `-L SOCKET`: Listen on given socket for adb server. Default is `tcp:localhost:5037`.
     ///
-    /// If you want to resolve the hostname, use [`Self::listen_resolved`] instead.
-    pub fn listen(self, addr: Tcp) -> Self {
+    /// If you want to resolve the hostname, use [`Self::L_listen_resolved`] instead.
+    #[allow(non_snake_case)]
+    pub fn L_listen(self, addr: Tcp) -> Self {
         self.add_global_option(AdbGlobalOption::Listen(addr), |opt| {
             matches!(opt, AdbGlobalOption::Listen(_))
         })
@@ -317,7 +326,8 @@ impl<'a> AdbCommandBuilder<'a> {
     /// `-L SOCKET`: Listen on given socket for adb server. Default is `tcp:localhost:5037`.
     ///
     /// This will resolve the hostname to an IP address. See [`Tcp::from_host`] for more information.
-    pub fn listen_resolved(self, addr: &str) -> AdbResult<Self> {
+    #[allow(non_snake_case)]
+    pub fn L_listen_resolved(self, addr: &str) -> AdbResult<Self> {
         Ok(
             self.add_global_option(AdbGlobalOption::Listen(Tcp::from_host(addr)?), |opt| {
                 matches!(opt, AdbGlobalOption::Listen(_))
