@@ -18,6 +18,7 @@ use std::process::{Child, Command, ExitStatus, Output};
 use crate::global_option::AdbGlobalOption;
 use crate::AdbResult;
 
+pub use file_transfer::{AdbCompressionAlgorithm, AdbSyncTarget};
 pub use scripting::{AdbRebootTarget, AdbWaitForState, AdbWaitForTransport};
 
 /// A trait that builds and executes adb commands.
