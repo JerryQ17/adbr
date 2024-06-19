@@ -34,7 +34,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.start_server().status().unwrap();
+    /// adb.start_server()
+    ///     .status()
+    ///     .expect("`adb start-server` failed");
     /// ```
     pub fn start_server(&self) -> AdbStartServer {
         AdbStartServer(self.command())
@@ -71,7 +73,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.kill_server().status().unwrap();
+    /// adb.kill_server()
+    ///     .status()
+    ///     .expect("`adb kill-server` failed");
     /// ```
     pub fn kill_server(&self) -> AdbKillServer {
         AdbKillServer(self.command())
@@ -100,7 +104,10 @@ impl<'a> AdbReconnect<'a> {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.reconnect().device().status().unwrap();
+    /// adb.reconnect()
+    ///     .device()
+    ///     .status()
+    ///     .expect("`adb reconnect device` failed");
     /// ```
     pub fn device(self) -> AdbReconnectDevice<'a> {
         AdbReconnectDevice(self.0)
@@ -115,7 +122,10 @@ impl<'a> AdbReconnect<'a> {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.reconnect().offline().status().unwrap();
+    /// adb.reconnect()
+    ///     .offline()
+    ///     .status()
+    ///     .expect("`adb reconnect offline` failed");
     /// ```
     pub fn offline(self) -> AdbReconnectOffline<'a> {
         AdbReconnectOffline(self.0)
@@ -140,7 +150,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.reconnect().status().unwrap();
+    /// adb.reconnect()
+    ///     .status()
+    ///     .expect("`adb reconnect` failed");
     /// ```
     pub fn reconnect(&self) -> AdbReconnect {
         AdbReconnect(self.command())

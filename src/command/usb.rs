@@ -22,7 +22,7 @@ pub struct AdbAttach<'a, S: AsRef<OsStr>> {
 
 impl<'a, S: AsRef<OsStr>> AdbAttach<'a, S> {
     /// Creates a new `AdbAttach` command.
-    pub fn new(acb: AdbCommandBuilder<'a>, serial: S) -> Self {
+    fn new(acb: AdbCommandBuilder<'a>, serial: S) -> Self {
         Self { acb, serial }
     }
 
@@ -56,7 +56,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.attach("serial").status().unwrap();
+    /// adb.attach("serial")
+    ///     .status()
+    ///     .expect("`adb attach serial` failed");
     /// ```
     pub fn attach<S: AsRef<OsStr>>(&self, serial: S) -> AdbAttach<S> {
         AdbAttach::new(self.command(), serial)
@@ -81,7 +83,7 @@ pub struct AdbDetach<'a, S: AsRef<OsStr>> {
 
 impl<'a, S: AsRef<OsStr>> AdbDetach<'a, S> {
     /// Creates a new `AdbDetach` command.
-    pub fn new(acb: AdbCommandBuilder<'a>, serial: S) -> Self {
+    fn new(acb: AdbCommandBuilder<'a>, serial: S) -> Self {
         Self { acb, serial }
     }
 
@@ -115,7 +117,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.detach("serial").status().unwrap();
+    /// adb.detach("serial")
+    ///     .status()
+    ///     .expect("`adb detach serial` failed");
     /// ```
     pub fn detach<S: AsRef<OsStr>>(&self, serial: S) -> AdbDetach<S> {
         AdbDetach::new(self.command(), serial)

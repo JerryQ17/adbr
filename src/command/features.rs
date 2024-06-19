@@ -31,7 +31,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.host_features().status().unwrap();
+    /// adb.host_features()
+    ///     .status()
+    ///     .expect("`adb host-features` failed");
     /// ```
     pub fn host_features(&self) -> AdbHostFeatures {
         AdbHostFeatures(self.command())
@@ -68,7 +70,9 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # let adb = Adb::new();
-    /// adb.features().status().unwrap();
+    /// adb.features()
+    ///     .status()
+    ///     .expect("`adb features` failed");
     /// ```
     pub fn features(&self) -> AdbFeatures {
         AdbFeatures(self.command())

@@ -76,12 +76,6 @@ impl<'a> AdbCommandBuilder<'a> {
 /// `help`: Show help message.
 pub struct Help<'a>(AdbCommandBuilder<'a>);
 
-impl<'a> Help<'a> {
-    fn new(acb: AdbCommandBuilder<'a>) -> Self {
-        Self(acb)
-    }
-}
-
 impl<'a> AdbCommand for Help<'a> {
     fn build(self) -> Command {
         let mut cmd = self.0.build();
@@ -103,7 +97,7 @@ impl Adb {
     /// adb.help().status().expect("`adb help` failed");
     /// ```
     pub fn help(&self) -> Help {
-        Help::new(self.command())
+        Help(self.command())
     }
 }
 
@@ -112,18 +106,12 @@ impl<'a> AdbCommandBuilder<'a> {
     ///
     /// See [`Adb::help`] for more information.
     pub fn help(self) -> Help<'a> {
-        Help::new(self)
+        Help(self)
     }
 }
 
 /// `version`: Show version number.
 pub struct Version<'a>(AdbCommandBuilder<'a>);
-
-impl<'a> Version<'a> {
-    fn new(acb: AdbCommandBuilder<'a>) -> Self {
-        Self(acb)
-    }
-}
 
 impl<'a> AdbCommand for Version<'a> {
     fn build(self) -> Command {
@@ -146,7 +134,7 @@ impl Adb {
     /// adb.version().status().expect("`adb version` failed");
     /// ```
     pub fn version(&self) -> Version {
-        Version::new(self.command())
+        Version(self.command())
     }
 }
 
@@ -155,6 +143,6 @@ impl<'a> AdbCommandBuilder<'a> {
     ///
     /// See [`Adb::version`] for more information.
     pub fn version(self) -> Version<'a> {
-        Version::new(self)
+        Version(self)
     }
 }

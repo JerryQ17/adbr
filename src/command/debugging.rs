@@ -26,7 +26,7 @@ pub struct AdbBugReport<'a, S: AsRef<OsStr>> {
 
 impl<'a, S: AsRef<OsStr>> AdbBugReport<'a, S> {
     /// Creates a new `AdbBugReport` command.
-    pub fn new(acb: AdbCommandBuilder<'a>) -> Self {
+    fn new(acb: AdbCommandBuilder<'a>) -> Self {
         Self { acb, path: None }
     }
 

@@ -4,7 +4,7 @@ pub mod debugging;
 pub mod features;
 pub mod file_transfer;
 pub mod general;
-mod internal_debugging;
+pub mod internal_debugging;
 pub mod networking;
 pub mod scripting;
 pub mod security;
