@@ -1,4 +1,60 @@
-//! A Rust library for interacting with the Android Debug Bridge (adb).
+//! A simple and easy-to-use library for interacting with the Android Debug Bridge (adb).
+//!
+//! # Features
+//!
+//! - set the working directory
+//! - set adb environment variables
+//! - call the (supported) command to execute in a chain (with or without global options)
+//! - build and execute the command (provided by trait [`AdbCommand`])
+//!
+//! Currently, it only supports commands mentioned in [adb man page](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/user/adb.1.md).
+//!
+//! However, adbr is designed to be highly extensible, so you can easily add new commands.
+//! Please don't hesitate to open an issue or a pull request if you have any suggestions or improvements!
+//!
+//! # Fast Start
+//!
+//! First, add adbr to your `Cargo.toml`:
+//!
+//! ```toml
+//! [dependencies]
+//! adbr = "0.1"
+//! ```
+//!
+//! Then, create an `Adb` instance:
+//!
+//! ```
+//! use adbr::{Adb, AdbCommand};
+//!
+//! let adb = Adb::new();   // adb binary is assumed to be in PATH
+//! // you can also specify the working directory
+//! // let adb = Adb::with_working_directory("/path/to/adb").unwrap();
+//! ```
+//!
+//! Now, you can execute adb commands, `adb devices` for example:
+//!
+//! ```no_run
+//! # use adbr::{Adb, AdbCommand};
+//! # let adb = Adb::new();
+//! let output = adb.devices().output().unwrap();
+//! println!("{}", String::from_utf8_lossy(&output.stdout));
+//! ```
+//!
+//! A more complex example:
+//!
+//! `adb push --sync -z lz4 /path/to/local1 /path/to/local2 /path/to/remote`
+//!
+//! ```no_run
+//! # use adbr::{Adb, AdbCommand};
+//! # let adb = Adb::new();
+//! use adbr::command::AdbCompressionAlgorithm;
+//!
+//! adb.push(&["/path/to/local1", "/path/to/local2"], "/path/to/remote")
+//!     .sync()
+//!     .z(AdbCompressionAlgorithm::Lz4)
+//!     .status()
+//!     .unwrap();
+//! ```
 
 pub mod command;
 pub mod envs;
@@ -21,6 +77,9 @@ pub use command::global_option::AdbGlobalOption;
 pub type AdbResult<T> = Result<T, AdbError>;
 
 /// A wrapper around the adb binary.
+/// It contains working directory and environment variables to build and execute adb commands.
+///
+/// See [crate level documentation](index.html) for more information.
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct Adb {
     /// The canonical directory where the adb binary is located.
