@@ -212,7 +212,7 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # use adbr::command::file_transfer::AdbCompressionAlgorithm;
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.push(["/path/to/local"], "/path/to/remote")
     ///     .z(AdbCompressionAlgorithm::Zstd)   // optional
     ///     .status()
@@ -372,7 +372,7 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # use adbr::command::file_transfer::AdbCompressionAlgorithm;
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.pull(["/path/to/remote"], "/path/to/local")
     ///     .z(AdbCompressionAlgorithm::Zstd)   // optional
     ///     .status()
@@ -576,7 +576,7 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # use adbr::command::file_transfer::{AdbCompressionAlgorithm, AdbSyncTarget};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.sync()
     ///     .z(AdbCompressionAlgorithm::Zstd)   // optional
     ///     .arg(AdbSyncTarget::All)            // optional

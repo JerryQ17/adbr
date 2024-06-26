@@ -324,7 +324,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.install("/path/to/app.apk")
     ///     .r()
     ///     .status()
@@ -662,7 +662,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.install_multiple(&["/path/to/app1.apk", "/path/to/app2.apk"])
     ///     .r()
     ///     .status()
@@ -1012,7 +1012,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.install_multi_package(&["/path/to/app1.apk", "/path/to/app2.apk"])
     ///     .r()
     ///     .status()
@@ -1130,7 +1130,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.uninstall("com.example.app")
     ///     .status()
     ///     .expect("`adb uninstall com.example.app` failed");

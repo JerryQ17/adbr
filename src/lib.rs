@@ -26,7 +26,7 @@
 //! ```
 //! use adbr::{Adb, AdbCommand};
 //!
-//! let adb = Adb::new();   // adb binary is assumed to be in PATH
+//! let adb = Adb::new().unwrap();   // adb binary is assumed to be in PATH
 //! // you can also specify the working directory
 //! // let adb = Adb::with_working_directory("/path/to/adb").unwrap();
 //! ```
@@ -35,7 +35,7 @@
 //!
 //! ```no_run
 //! # use adbr::{Adb, AdbCommand};
-//! # let adb = Adb::new();
+//! # let adb = Adb::new().unwrap();
 //! let output = adb.devices().output().unwrap();
 //! println!("{}", String::from_utf8_lossy(&output.stdout));
 //! ```
@@ -46,7 +46,7 @@
 //!
 //! ```no_run
 //! # use adbr::{Adb, AdbCommand};
-//! # let adb = Adb::new();
+//! # let adb = Adb::new().unwrap();
 //! use adbr::command::AdbCompressionAlgorithm;
 //!
 //! adb.push(&["/path/to/local1", "/path/to/local2"], "/path/to/remote")
@@ -65,13 +65,13 @@ use std::fs::canonicalize;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use crate::command::AdbCommandBuilder;
+use command::AdbCommandBuilder;
 
-pub use crate::command::AdbCommand;
-pub use crate::envs::AdbEnvs;
-pub use crate::error::AdbError;
-pub use crate::socket::*;
 pub use command::global_option::AdbGlobalOption;
+pub use command::AdbCommand;
+pub use envs::AdbEnvs;
+pub use error::AdbError;
+pub use socket::*;
 
 /// Adb result type, where the error is [`AdbError`].
 pub type AdbResult<T> = Result<T, AdbError>;
@@ -93,18 +93,18 @@ impl Adb {
     /// Creates a new [`Adb`] instance.
     ///
     /// The adb binary is assumed to be in `PATH`.
-    pub fn new() -> Self {
-        Self {
+    pub fn new() -> AdbResult<Self> {
+        Ok(Self {
             working_directory: None,
-            envs: AdbEnvs::default(),
-        }
+            envs: AdbEnvs::new()?,
+        })
     }
 
     /// Creates a new `Adb` instance with the adb binary located at `path`.
     ///
     /// See [`Self::set_working_directory`] for more information.
     pub fn with_working_directory<P: AsRef<Path>>(path: P) -> AdbResult<Self> {
-        let mut adb = Self::new();
+        let mut adb = Self::new()?;
         adb.set_working_directory(path)?;
         Ok(adb)
     }
@@ -156,6 +156,11 @@ impl Adb {
     /// Gets the adb environment variables.
     pub fn envs(&self) -> &AdbEnvs {
         &self.envs
+    }
+
+    /// Gets the mutable adb environment variables.
+    pub fn envs_mut(&mut self) -> &mut AdbEnvs {
+        &mut self.envs
     }
 
     /// Creates a new [`AdbCommandBuilder`].

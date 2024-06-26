@@ -163,7 +163,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.shell()
     ///     .arg("ls")
     ///     .arg("-l")
@@ -222,7 +222,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.emu("kill").status().expect("`adb emu kill` failed");
     /// ```
     pub fn emu<S: AsRef<OsStr>>(&self, command: S) -> AdbEmu<S> {

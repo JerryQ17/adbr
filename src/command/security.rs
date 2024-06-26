@@ -33,7 +33,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.disable_verity()
     ///     .status()
     ///     .expect("`adb disable-verity` failed");
@@ -73,7 +73,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.enable_verity()
     ///     .status()
     ///     .expect("`adb enable-verity` failed");
@@ -129,7 +129,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.keygen("/path/to/private/key")
     ///     .status()
     ///     .expect("`adb keygen /path/to/private/key` failed");

@@ -34,7 +34,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.start_server()
     ///     .status()
     ///     .expect("`adb start-server` failed");
@@ -74,7 +74,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.kill_server()
     ///     .status()
     ///     .expect("`adb kill-server` failed");
@@ -106,7 +106,7 @@ impl<'a> AdbReconnect<'a> {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reconnect()
     ///     .device()
     ///     .status()
@@ -124,7 +124,7 @@ impl<'a> AdbReconnect<'a> {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reconnect()
     ///     .offline()
     ///     .status()
@@ -152,7 +152,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reconnect()
     ///     .status()
     ///     .expect("`adb reconnect` failed");

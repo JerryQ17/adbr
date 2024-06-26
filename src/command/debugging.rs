@@ -65,7 +65,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.bug_report()
     ///     .path("/path/to/bugreport.zip") // optional
     ///     .status()
@@ -106,7 +106,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.jdwp().status().expect("`adb jdwp` failed");
     /// ```
     pub fn jdwp(&self) -> AdbJdwp {
@@ -144,7 +144,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.logcat().status().expect("`adb logcat` failed");
     /// ```
     pub fn logcat(&self) -> AdbLogcat {

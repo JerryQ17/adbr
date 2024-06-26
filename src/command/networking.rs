@@ -85,7 +85,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.connect("localhost")
     ///     .port(5555) // optional
     ///     .status()
@@ -175,7 +175,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.disconnect()
     ///     .host("localhost")  // optional
     ///     .port(5555)         // optional
@@ -291,7 +291,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.pair("localhost")
     ///     .port(5555)             // optional
     ///     .pairing_code("123456") // optional
@@ -384,7 +384,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.forward()
     ///     .arg("tcp:1234", "tcp:5678")
     ///     .status()
@@ -395,7 +395,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.forward()
     ///     .list()
     ///     .status()
@@ -406,7 +406,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.forward()
     ///     .no_rebind("tcp:1234", "tcp:5678")
     ///     .status()
@@ -423,7 +423,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.forward()
     ///     .remove("tcp:5555")
     ///     .status()
@@ -434,7 +434,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.forward()
     ///     .remove_all()
     ///     .status()
@@ -664,7 +664,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reverse()
     ///     .arg("tcp:1234", "tcp:5678")
     ///     .status()
@@ -675,7 +675,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reverse()
     ///     .list()
     ///     .status()
@@ -686,7 +686,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reverse()
     ///     .no_rebind("tcp:1234", "tcp:5678")
     ///     .status()
@@ -703,7 +703,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reverse()
     ///     .remove("tcp:5555")
     ///     .status()
@@ -714,7 +714,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reverse()
     ///     .remove_all()
     ///     .status()
@@ -905,7 +905,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.mdns()
     ///     .check()
     ///     .status()
@@ -916,7 +916,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.mdns()
     ///     .services()
     ///     .status()

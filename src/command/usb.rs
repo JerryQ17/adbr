@@ -56,7 +56,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.attach("serial")
     ///     .status()
     ///     .expect("`adb attach serial` failed");
@@ -118,7 +118,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.detach("serial")
     ///     .status()
     ///     .expect("`adb detach serial` failed");

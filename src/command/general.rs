@@ -53,7 +53,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.devices()
     ///     .l()
     ///     .status()
@@ -95,7 +95,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.help().status().expect("`adb help` failed");
     /// ```
     pub fn help(&self) -> Help {
@@ -133,7 +133,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.version().status().expect("`adb version` failed");
     /// ```
     pub fn version(&self) -> Version {

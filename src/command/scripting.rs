@@ -191,7 +191,7 @@ impl Adb {
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
     /// # use adbr::command::AdbWaitForState;
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.wait_for(AdbWaitForState::Device)
     ///     .build()
     ///     .arg("shell")
@@ -234,7 +234,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.get_state()
     ///     .status()
     ///     .expect("`adb get-state` failed");
@@ -274,7 +274,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.get_serial_no()
     ///     .status()
     ///     .expect("`adb get-serialno` failed");
@@ -314,7 +314,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.get_dev_path()
     ///     .status()
     ///     .expect("`adb get-devpath` failed");
@@ -378,7 +378,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.remount()
     ///     .R(true)
     ///     .status()
@@ -489,7 +489,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.reboot()
     ///     .status()
     ///     .expect("`adb reboot` failed");
@@ -557,7 +557,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.sideload()
     ///     .status()
     ///     .expect("`adb sideload` failed");
@@ -567,7 +567,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.sideload()
     ///     .ota_package("OTAPACKAGE")
     ///     .status()
@@ -609,7 +609,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.sideload_auto_reboot()
     ///     .status()
     ///     .expect("`adb sideload-auto-reboot` failed");
@@ -649,7 +649,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.root()
     ///     .status()
     ///     .expect("`adb root` failed");
@@ -689,7 +689,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.unroot()
     ///     .status()
     ///     .expect("`adb unroot` failed");
@@ -729,7 +729,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.usb()
     ///     .status()
     ///     .expect("`adb usb` failed");
@@ -788,7 +788,7 @@ impl Adb {
     ///
     /// ```no_run
     /// # use adbr::{Adb, AdbCommand};
-    /// # let adb = Adb::new();
+    /// # let adb = Adb::new().unwrap();
     /// adb.tcp_ip(5555)
     ///     .status()
     ///     .expect("`adb tcpip 5555` failed");
