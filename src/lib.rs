@@ -55,6 +55,42 @@
 //!     .status()
 //!     .unwrap();
 //! ```
+//!
+//! # Environment Variables
+//!
+//! The adb command will be executed with the environment variables stored in the `Adb` instance.
+//!
+//! The initial values is determined by the constructor you use:
+//!
+//! - [`Adb::new`] | [`Adb::with_working_directory`]: inherits all environment variables from the current process.
+//! - [`Adb::default`]: removes all adb environment variables (see [`envs`] for all adb environment variables).
+//!
+//! To get and modify the environment variables stored in [`Adb`],
+//! you can use [`Adb::envs`] and [`Adb::envs_mut`].
+//!
+//! ```
+//! # use std::ops::Deref;
+//! # use adbr::{Adb, AdbEnvs};
+//! # let mut adb = Adb::new().unwrap();
+//! adb.envs_mut().set_adb_local_transport_max_port(1234);
+//! assert_eq!(
+//!     adb.envs().adb_local_transport_max_port(),
+//!     Some(1234),
+//! );
+//! ```
+//!
+//! To get and modify the environment variables of the current process,
+//! you can use [`envs::AdbEnv::get`] and [`envs::AdbEnv::set`] methods.
+//!
+//! ```
+//! use adbr::envs::{AdbEnv, AdbLocalTransportMaxPort};
+//!
+//! AdbLocalTransportMaxPort(1234).set().unwrap();
+//! assert_eq!(
+//!     AdbLocalTransportMaxPort::get().unwrap(),
+//!     AdbLocalTransportMaxPort(1234),
+//! );
+//! ```
 
 pub mod command;
 pub mod envs;
@@ -79,7 +115,7 @@ pub type AdbResult<T> = Result<T, AdbError>;
 /// A wrapper around the adb binary.
 /// It contains working directory and environment variables to build and execute adb commands.
 ///
-/// See [crate level documentation](index.html) for more information.
+/// See [crate level documentation](crate) for more information.
 #[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct Adb {
     /// The canonical directory where the adb binary is located.

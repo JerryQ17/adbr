@@ -16,6 +16,9 @@
 //! - [`AdbLibusb`]: ADB has its own USB backend implementation but can also employ libusb.
 //!     use `adb devices -l` (usb: prefix is omitted for libusb) or `adb host-features` (look for libusb in the output list) to identify which is in use.
 //!     To override the default for your OS, set `ADB_LIBUSB` to `1` to enable libusb, or `0` to enable the ADB backend implementation.
+//! 
+//! To get and modify the environment variables at instance level, you can use [`crate::Adb::envs`] and [`crate::Adb::envs_mut`],
+//! or [`AdbEnv::get`] and [`AdbEnv::set`] methods at process level, see [crate level documentation](crate#environment-variables).
 
 use std::env::VarError;
 use std::fmt::Display;
@@ -32,25 +35,34 @@ use crate::{AdbError, AdbResult};
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Default)]
 pub struct AdbEnvs {
     /// `$ADB_TRACE`: Comma (or space) separated list of debug info to log.
-    pub adb_trace: Option<AdbTrace>,
+    adb_trace: Option<AdbTrace>,
     /// `$ADB_VENDOR_KEYS`: Colon-separated list of keys (files or directories).
-    pub adb_vendor_keys: Option<AdbVendorKeys>,
-    /// `$ANDROID_SERIAL`: Serial number to connect to (see -s).
-    pub android_serial: Option<AndroidSerial>,
+    adb_vendor_keys: Option<AdbVendorKeys>,
+    /// `$ANDROID_SERIAL`: Serial number to connect to (see -s [`crate::AdbGlobalOption::Serial`]).
+    android_serial: Option<AndroidSerial>,
     /// `$ANDROID_LOG_TAGS`: Tags to be used by logcat (see `logcat --help`).
-    pub android_log_tags: Option<AndroidLogTags>,
+    android_log_tags: Option<AndroidLogTags>,
     /// `$ADB_LOCAL_TRANSPORT_MAX_PORT`: Max emulator scan port (default 5585, 16 emulators).
-    pub adb_local_transport_max_port: Option<AdbLocalTransportMaxPort>,
+    adb_local_transport_max_port: Option<AdbLocalTransportMaxPort>,
     /// `$ADB_MDNS_AUTO_CONNECT`: Comma-separated list of mdns services to allow auto-connect (default adb-tls-connect).
-    pub adb_mdns_auto_connect: Option<AdbMdnsAutoConnect>,
+    adb_mdns_auto_connect: Option<AdbMdnsAutoConnect>,
     /// `$ADB_MDNS_OPENSCREEN`: The default mDNS-SD backend is Bonjour (mdnsResponder).
     /// For machines where Bonjour is not installed, adb can spawn its own, embedded, mDNS-SD back end, openscreen.
     /// If set to `1`, this env variable forces mDNS backend to openscreen.
-    pub adb_mdns_openscreen: Option<AdbMdnsOpenScreen>,
+    adb_mdns_openscreen: Option<AdbMdnsOpenScreen>,
     /// `$ADB_LIBUSB`: ADB has its own USB backend implementation but can also employ libusb.
     /// use `adb devices -l` (usb: prefix is omitted for libusb) or `adb host-features` (look for libusb in the output list) to identify which is in use.
     /// To override the default for your OS, set `ADB_LIBUSB` to `1` to enable libusb, or `0` to enable the ADB backend implementation.
-    pub adb_libusb: Option<AdbLibusb>,
+    adb_libusb: Option<AdbLibusb>,
+}
+
+/// Applies the value of an adb environment variable to a command.
+#[inline]
+fn _apply<T: AdbEnv>(var: Option<&T>, cmd: &mut Command) {
+    match var {
+        Some(var) => cmd.env(T::NAME, var.to_string()),
+        None => cmd.env_remove(T::NAME),
+    };
 }
 
 impl AdbEnvs {
@@ -81,15 +93,191 @@ impl AdbEnvs {
         _apply(self.adb_mdns_openscreen.as_ref(), cmd);
         _apply(self.adb_libusb.as_ref(), cmd);
     }
-}
 
-/// Applies the value of an adb environment variable to a command.
-#[inline]
-fn _apply<T: AdbEnv>(var: Option<&T>, cmd: &mut Command) {
-    match var {
-        Some(var) => cmd.env(T::NAME, var.to_string()),
-        None => cmd.env_remove(T::NAME),
-    };
+    /// `$ADB_TRACE`: Comma (or space) separated list of debug info to log.
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn adb_trace(&self) -> Option<&[AdbTraceEnum]> {
+        self.adb_trace.as_deref()
+    }
+
+    /// `$ADB_TRACE`: Comma (or space) separated list of debug info to log.
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_adb_trace(&mut self, value: Vec<AdbTraceEnum>) -> Option<AdbTrace> {
+        self.adb_trace.replace(AdbTrace(value))
+    }
+
+    /// `$ADB_TRACE`: Comma (or space) separated list of debug info to log.
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_adb_trace(&mut self) -> Option<AdbTrace> {
+        self.adb_trace.take()
+    }
+
+    /// `$ADB_VENDOR_KEYS`: Colon-separated list of keys (files or directories).
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn adb_vendor_keys(&self) -> Option<&[String]> {
+        self.adb_vendor_keys.as_deref()
+    }
+
+    /// `$ADB_VENDOR_KEYS`: Colon-separated list of keys (files or directories).
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_adb_vendor_keys(&mut self, value: Vec<String>) -> Option<AdbVendorKeys> {
+        self.adb_vendor_keys.replace(AdbVendorKeys(value))
+    }
+
+    /// `$ADB_VENDOR_KEYS`: Colon-separated list of keys (files or directories).
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_adb_vendor_keys(&mut self) -> Option<AdbVendorKeys> {
+        self.adb_vendor_keys.take()
+    }
+
+    /// `$ANDROID_SERIAL`: Serial number to connect to (see -s [`crate::AdbGlobalOption::Serial`]).
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn android_serial(&self) -> Option<&str> {
+        self.android_serial.as_deref()
+    }
+
+    /// `$ANDROID_SERIAL`: Serial number to connect to (see -s [`crate::AdbGlobalOption::Serial`]).
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_android_serial(&mut self, value: String) -> Option<AndroidSerial> {
+        self.android_serial.replace(AndroidSerial(value))
+    }
+
+    /// `$ANDROID_SERIAL`: Serial number to connect to (see -s [`crate::AdbGlobalOption::Serial`]).
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_android_serial(&mut self) -> Option<AndroidSerial> {
+        self.android_serial.take()
+    }
+
+    /// `$ANDROID_LOG_TAGS`: Tags to be used by logcat (see `logcat --help`).
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn android_log_tags(&self) -> Option<&str> {
+        self.android_log_tags.as_deref()
+    }
+
+    /// `$ANDROID_LOG_TAGS`: Tags to be used by logcat (see `logcat --help`).
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_android_log_tags(&mut self, value: String) -> Option<AndroidLogTags> {
+        self.android_log_tags.replace(AndroidLogTags(value))
+    }
+
+    /// `$ANDROID_LOG_TAGS`: Tags to be used by logcat (see `logcat --help`).
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_android_log_tags(&mut self) -> Option<AndroidLogTags> {
+        self.android_log_tags.take()
+    }
+
+    /// `$ADB_LOCAL_TRANSPORT_MAX_PORT`: Max emulator scan port (default 5585, 16 emulators).
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn adb_local_transport_max_port(&self) -> Option<u16> {
+        self.adb_local_transport_max_port.as_deref().copied()
+    }
+
+    /// `$ADB_LOCAL_TRANSPORT_MAX_PORT`: Max emulator scan port (default 5585, 16 emulators).
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_adb_local_transport_max_port(
+        &mut self,
+        value: u16,
+    ) -> Option<AdbLocalTransportMaxPort> {
+        self.adb_local_transport_max_port
+            .replace(AdbLocalTransportMaxPort(value))
+    }
+
+    /// `$ADB_LOCAL_TRANSPORT_MAX_PORT`: Max emulator scan port (default 5585, 16 emulators).
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_adb_local_transport_max_port(&mut self) -> Option<AdbLocalTransportMaxPort> {
+        self.adb_local_transport_max_port.take()
+    }
+
+    /// `$ADB_MDNS_AUTO_CONNECT`: Comma-separated list of mdns services to allow auto-connect (default adb-tls-connect).
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn adb_mdns_auto_connect(&self) -> Option<&[String]> {
+        self.adb_mdns_auto_connect.as_deref()
+    }
+
+    /// `$ADB_MDNS_AUTO_CONNECT`: Comma-separated list of mdns services to allow auto-connect (default adb-tls-connect).
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_adb_mdns_auto_connect(&mut self, value: Vec<String>) -> Option<AdbMdnsAutoConnect> {
+        self.adb_mdns_auto_connect
+            .replace(AdbMdnsAutoConnect(value))
+    }
+
+    /// `$ADB_MDNS_AUTO_CONNECT`: Comma-separated list of mdns services to allow auto-connect (default adb-tls-connect).
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_adb_mdns_auto_connect(&mut self) -> Option<AdbMdnsAutoConnect> {
+        self.adb_mdns_auto_connect.take()
+    }
+
+    /// `$ADB_MDNS_OPENSCREEN`: The default mDNS-SD backend is Bonjour (mdnsResponder).
+    /// For machines where Bonjour is not installed, adb can spawn its own, embedded, mDNS-SD back end, openscreen.
+    /// If set to `1`, this env variable forces mDNS backend to openscreen.
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn adb_mdns_openscreen(&self) -> Option<bool> {
+        self.adb_mdns_openscreen.as_deref().copied()
+    }
+
+    /// `$ADB_MDNS_OPENSCREEN`: The default mDNS-SD backend is Bonjour (mdnsResponder).
+    /// For machines where Bonjour is not installed, adb can spawn its own, embedded, mDNS-SD back end, openscreen.
+    /// If set to `1`, this env variable forces mDNS backend to openscreen.
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_adb_mdns_openscreen(&mut self, value: bool) -> Option<AdbMdnsOpenScreen> {
+        self.adb_mdns_openscreen.replace(AdbMdnsOpenScreen(value))
+    }
+
+    /// `$ADB_MDNS_OPENSCREEN`: The default mDNS-SD backend is Bonjour (mdnsResponder).
+    /// For machines where Bonjour is not installed, adb can spawn its own, embedded, mDNS-SD back end, openscreen.
+    /// If set to `1`, this env variable forces mDNS backend to openscreen.
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_adb_mdns_openscreen(&mut self) -> Option<AdbMdnsOpenScreen> {
+        self.adb_mdns_openscreen.take()
+    }
+
+    /// `$ADB_LIBUSB`: ADB has its own USB backend implementation but can also employ libusb.
+    /// use `adb devices -l` (usb: prefix is omitted for libusb) or `adb host-features` (look for libusb in the output list) to identify which is in use.
+    /// To override the default for your OS, set `ADB_LIBUSB` to `1` to enable libusb, or `0` to enable the ADB backend implementation.
+    ///
+    /// If the environment variable is not set, returns `None`.
+    pub fn adb_libusb(&self) -> Option<bool> {
+        self.adb_libusb.as_deref().copied()
+    }
+
+    /// `$ADB_LIBUSB`: ADB has its own USB backend implementation but can also employ libusb.
+    /// use `adb devices -l` (usb: prefix is omitted for libusb) or `adb host-features` (look for libusb in the output list) to identify which is in use.
+    /// To override the default for your OS, set `ADB_LIBUSB` to `1` to enable libusb, or `0` to enable the ADB backend implementation.
+    ///
+    /// Replaces the old value with the given value, returning the old value.
+    pub fn set_adb_libusb(&mut self, value: bool) -> Option<AdbLibusb> {
+        self.adb_libusb.replace(AdbLibusb(value))
+    }
+
+    /// `$ADB_LIBUSB`: ADB has its own USB backend implementation but can also employ libusb.
+    /// use `adb devices -l` (usb: prefix is omitted for libusb) or `adb host-features` (look for libusb in the output list) to identify which is in use.
+    /// To override the default for your OS, set `ADB_LIBUSB` to `1` to enable libusb, or `0` to enable the ADB backend implementation.
+    ///
+    /// Removes the environment variable, returning the old value.
+    pub fn remove_adb_libusb(&mut self) -> Option<AdbLibusb> {
+        self.adb_libusb.take()
+    }
 }
 
 /// Gets and sets the value of an adb environment variable.
@@ -438,6 +626,14 @@ impl AdbEnv for AdbMdnsOpenScreen {
 /// To override the default for your OS, set `ADB_LIBUSB` to `1` to enable libusb, or `0` to enable the ADB backend implementation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
 pub struct AdbLibusb(pub bool);
+
+impl Deref for AdbLibusb {
+    type Target = bool;
+
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
 
 impl FromStr for AdbLibusb {
     type Err = AdbError;
