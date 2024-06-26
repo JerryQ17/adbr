@@ -85,10 +85,10 @@
 //! ```
 //! use adbr::envs::{AdbEnv, AdbLocalTransportMaxPort};
 //!
-//! AdbLocalTransportMaxPort(1234).set().unwrap();
+//! AdbLocalTransportMaxPort(1234).set();
 //! assert_eq!(
 //!     AdbLocalTransportMaxPort::get().unwrap(),
-//!     AdbLocalTransportMaxPort(1234),
+//!     Some(AdbLocalTransportMaxPort(1234)),
 //! );
 //! ```
 
