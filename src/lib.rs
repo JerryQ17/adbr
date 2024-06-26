@@ -1,6 +1,7 @@
 //! A Rust library for interacting with the Android Debug Bridge (adb).
 
 pub mod command;
+pub mod envs;
 pub mod error;
 pub mod global_option;
 pub mod socket;
@@ -11,28 +12,33 @@ use std::path::{Path, PathBuf};
 
 use crate::command::AdbCommandBuilder;
 
-// Re-exports.
 pub use crate::command::AdbCommand;
+pub use crate::envs::AdbEnvs;
 pub use crate::error::AdbError;
+pub use crate::global_option::AdbGlobalOption;
+pub use crate::socket::*;
 
 /// Adb result type, where the error is [`AdbError`].
 pub type AdbResult<T> = Result<T, AdbError>;
 
 /// A wrapper around the adb binary.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, PartialEq, Eq, Default)]
 pub struct Adb {
     /// The canonical directory where the adb binary is located.
     /// If None, the adb binary should be in `PATH`.
     working_directory: Option<PathBuf>,
+    /// Adb environment variables.
+    envs: AdbEnvs,
 }
 
 impl Adb {
     /// Creates a new [`Adb`] instance.
     ///
     /// The adb binary is assumed to be in `PATH`.
-    pub const fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             working_directory: None,
+            envs: AdbEnvs::default(),
         }
     }
 
@@ -89,11 +95,13 @@ impl Adb {
         self
     }
 
-    /// Creates a new [`AdbCommandBuilder`] with working directory (if [`Some`]).
+    /// Gets the adb environment variables.
+    pub fn envs(&self) -> &AdbEnvs {
+        &self.envs
+    }
+
+    /// Creates a new [`AdbCommandBuilder`].
     fn command(&self) -> AdbCommandBuilder {
-        match self.working_directory {
-            Some(ref dir) => AdbCommandBuilder::with_working_directory(dir),
-            None => AdbCommandBuilder::new(),
-        }
+        AdbCommandBuilder::new(self)
     }
 }

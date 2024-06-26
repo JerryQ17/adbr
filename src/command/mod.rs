@@ -13,11 +13,10 @@ pub mod shell;
 pub mod usb;
 
 use std::collections::HashSet;
-use std::path::Path;
 use std::process::{Child, Command, ExitStatus, Output};
 
 use crate::global_option::AdbGlobalOption;
-use crate::AdbResult;
+use crate::{Adb, AdbResult};
 
 pub use file_transfer::{AdbCompressionAlgorithm, AdbSyncTarget};
 pub use scripting::{AdbRebootTarget, AdbWaitForState, AdbWaitForTransport};
@@ -64,29 +63,20 @@ pub trait AdbCommand: Sized {
 #[derive(Debug, Clone, Eq, PartialEq)]
 /// A builder for adb commands.
 ///
-/// It contains working directory and global options of a command,
+/// It contains the environment and global options of a command,
 /// but command-specific options are not provided.
 pub struct AdbCommandBuilder<'a> {
-    /// The working directory of the command.
-    /// If None, the command will be executed in the current working directory.
-    working_directory: Option<&'a Path>,
+    /// The environment used in this command.
+    adb: &'a Adb,
     /// The global options of the command.
     global_options: HashSet<AdbGlobalOption>,
 }
 
 impl<'a> AdbCommandBuilder<'a> {
-    /// Creates an [`AdbCommandBuilder`] with no working directory and no global options.
-    pub(crate) fn new() -> Self {
+    /// Creates an [`AdbCommandBuilder`] with empty global options.
+    pub(crate) fn new(adb: &'a Adb) -> Self {
         Self {
-            working_directory: None,
-            global_options: HashSet::new(),
-        }
-    }
-
-    /// Creates an [`AdbCommandBuilder`] with the given working directory and no global options.
-    pub(crate) fn with_working_directory(path: &'a Path) -> Self {
-        Self {
-            working_directory: Some(path),
+            adb,
             global_options: HashSet::new(),
         }
     }
@@ -112,12 +102,13 @@ impl<'a> AdbCommandBuilder<'a> {
         self
     }
 
-    /// Builds the adb command with working directory and global options.
+    /// Builds the adb command with working directory, environment variables and global options.
     fn build(self) -> Command {
         let mut cmd = Command::new("adb");
-        if let Some(working_directory) = self.working_directory {
+        if let Some(working_directory) = &self.adb.working_directory {
             cmd.current_dir(working_directory);
         }
+        self.adb.envs.apply(&mut cmd);
         cmd.args(self.global_options.iter().map(|opt| opt.to_string()));
         cmd
     }
