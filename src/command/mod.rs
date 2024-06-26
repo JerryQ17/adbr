@@ -5,6 +5,7 @@ pub mod debugging;
 pub mod features;
 pub mod file_transfer;
 pub mod general;
+pub mod global_option;
 pub mod internal_debugging;
 pub mod networking;
 pub mod scripting;
@@ -15,8 +16,8 @@ pub mod usb;
 use std::collections::HashSet;
 use std::process::{Child, Command, ExitStatus, Output};
 
-use crate::global_option::AdbGlobalOption;
 use crate::{Adb, AdbResult};
+use global_option::AdbGlobalOption;
 
 pub use file_transfer::{AdbCompressionAlgorithm, AdbSyncTarget};
 pub use scripting::{AdbRebootTarget, AdbWaitForState, AdbWaitForTransport};

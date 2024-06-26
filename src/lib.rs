@@ -3,7 +3,6 @@
 pub mod command;
 pub mod envs;
 pub mod error;
-pub mod global_option;
 pub mod socket;
 
 use std::fs::canonicalize;
@@ -15,8 +14,8 @@ use crate::command::AdbCommandBuilder;
 pub use crate::command::AdbCommand;
 pub use crate::envs::AdbEnvs;
 pub use crate::error::AdbError;
-pub use crate::global_option::AdbGlobalOption;
 pub use crate::socket::*;
+pub use command::global_option::AdbGlobalOption;
 
 /// Adb result type, where the error is [`AdbError`].
 pub type AdbResult<T> = Result<T, AdbError>;

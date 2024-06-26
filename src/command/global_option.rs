@@ -29,7 +29,7 @@ use crate::{Adb, AdbResult};
 ///
 /// ```
 /// # use std::net::{IpAddr, Ipv4Addr};
-/// # use adbr::global_option::AdbGlobalOption;
+/// # use adbr::AdbGlobalOption;
 /// # use adbr::socket::Tcp;
 /// assert_eq!("-a".parse::<AdbGlobalOption>().unwrap(), AdbGlobalOption::ListenAll);
 /// assert_eq!(
@@ -85,7 +85,7 @@ impl AdbGlobalOption {
     ///
     /// ```
     /// # use std::net::{IpAddr, Ipv4Addr};
-    /// # use adbr::global_option::AdbGlobalOption;
+    /// # use adbr::AdbGlobalOption;
     /// # use adbr::socket::Tcp;
     /// assert_eq!(
     ///     AdbGlobalOption::from_host("-L tcp:localhost:8080").unwrap(),
